@@ -55,11 +55,13 @@ class MainActivity : AppCompatActivity() {
     private fun updateBaseCurrency(currency: SupportedCurrency) {
         originFormatter.currency = Currency.getInstance(currency.symbol)
         origin_currency_flag.loadRoundedImage(currency.icon)
+        origin_currency_full_name.text = "${currency.symbol} - ${currency.fullName}"
     }
 
     private fun updateResultCurrency(currency: SupportedCurrency) {
         resultFormatter.currency = Currency.getInstance(currency.symbol)
         result_currency_flag.loadRoundedImage(currency.icon)
+        result_currency_full_name.text = "${currency.symbol} - ${currency.fullName}"
     }
 
     private fun updateResultAmount(ratio: BigDecimal) {
