@@ -8,6 +8,7 @@ import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import uz.dkamaloff.entities.SupportedCurrencies
 import uz.dkamaloff.entities.SupportedCurrency
@@ -29,7 +30,7 @@ class MainViewModel @Inject constructor(
     val supportedCurrencies: LiveData<SupportedCurrencies> =
         MutableLiveData(currencyRepository.supportedCurrencies)
 
-    private val userInputChannel = ConflatedBroadcastChannel<Boolean>()
+    private val userInputChannel = ConflatedBroadcastChannel<BigDecimal>()
     private val _ratio = MutableLiveData<BigDecimal>()
     private val _baseCurrency = MutableLiveData<SupportedCurrency>(supportedCurrencies.value!![1])
     private val _resultCurrency = MutableLiveData<SupportedCurrency>(supportedCurrencies.value!![0])
@@ -42,14 +43,15 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             userInputChannel
                 .asFlow()
-                .debounce(1000L) // to prevent making a туецщкл request for each user input
+                .debounce(1000L) // prevent make a network request for each user input
+                .distinctUntilChanged() // prevent make network request if input is not different from previous
                 .collect { updateRatio() }
         }
     }
 
-    fun needUpdateRatio() {
+    fun needUpdateRatio(amount: BigDecimal) {
         viewModelScope.launch {
-            userInputChannel.send(true)
+            userInputChannel.send(amount)
         }
     }
 

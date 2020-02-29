@@ -73,6 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun onTextChanged(amount: BigDecimal) {
         currentAmount = amount
-        vm.needUpdateRatio()
+        vm.needUpdateRatio(amount)
     }
 }
