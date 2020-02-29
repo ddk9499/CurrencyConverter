@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="keyboard_divide_size">1dp</dimen>
+    <dimen name="keyboard_view_padding">8dp</dimen>
+    <dimen name="keyboard_view_margin">4dp</dimen>
+    <dimen name="keyboard_text_size">32sp</dimen>
+    <dimen name="flag_wh">75dp</dimen>
+</resources>
