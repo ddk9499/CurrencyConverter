@@ -25,7 +25,7 @@ typealias AmountListener = (BigDecimal) -> Unit
 
 class AmountFormatter(
     private val view: TextView,
-    var currency: Currency? = null,
+    private var currency: Currency? = null,
     private val listener: AmountListener? = null,
     private val limit: BigDecimal
 ) : TextWatcher {
@@ -89,6 +89,11 @@ class AmountFormatter(
                 amountFormattedString
             )
         }
+    }
+
+    fun setCurrency(currency: Currency) {
+        this.currency = currency
+        view.text = previousFormattedString
     }
 
     private fun formatAmount(rawString: String): CharSequence {
