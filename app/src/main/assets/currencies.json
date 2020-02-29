@@ -1,0 +1,17 @@
+[
+  {
+    "full_name": "US Dollar",
+    "iso": "USD",
+    "icon_url": "https://hatscripts.github.io/circle-flags/flags/us.svg"
+  },
+  {
+    "full_name": "Euro",
+    "iso": "EUR",
+    "icon_url": "https://hatscripts.github.io/circle-flags/flags/european_union.svg"
+  },
+  {
+    "full_name": "Pound Sterling",
+    "iso": "GBP",
+    "icon_url": "https://hatscripts.github.io/circle-flags/flags/gb.svg"
+  }
+]
