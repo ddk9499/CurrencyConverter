@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         result_currency_output.addTextChangedListener(resultFormatter)
+        swap_currencies_fab.setOnClickListener { vm.swapCurrencies() }
 
         vm.supportedCurrencies.observe(this, Observer {
             Log.d("MainActivity", "onCreate: ${it.size}")

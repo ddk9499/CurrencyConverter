@@ -55,6 +55,13 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun swapCurrencies() {
+        val tmp = _baseCurrency.value
+        _baseCurrency.value = _resultCurrency.value
+        _resultCurrency.value = tmp
+        viewModelScope.launch { updateRatio() }
+    }
+
     private suspend fun updateRatio() {
         _ratio.value =
             currencyRepository.refreshRatio(_baseCurrency.value!!, _resultCurrency.value!!)

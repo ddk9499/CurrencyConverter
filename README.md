@@ -3,7 +3,7 @@
 ## TODO
 - [ ] Improvement UI design
 - [ ] Implement night theme
-- [ ] Swap currencies
+- [x] Swap currencies
 - [ ] Make currencies selectable for user
 - [ ] Fully replace LiveData with Flow(kotlinx.coroutines)
 - [ ] Improve keyboard design.
