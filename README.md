@@ -4,7 +4,7 @@
 - [ ] Improvement UI design
 - [ ] Implement night theme
 - [x] Swap currencies
-- [ ] Make currencies selectable for user
+- [x] Make currencies selectable for user
 - [ ] Fully replace LiveData with Flow(kotlinx.coroutines)
 - [ ] Improve keyboard design.
 

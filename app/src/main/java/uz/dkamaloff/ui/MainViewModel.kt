@@ -59,10 +59,17 @@ class MainViewModel @Inject constructor(
         val tmp = _baseCurrency.value
         _baseCurrency.value = _resultCurrency.value
         _resultCurrency.value = tmp
-        viewModelScope.launch { updateRatio() }
+        updateRatio()
     }
 
-    private suspend fun updateRatio() {
+    fun changeCurrency(isBase: Boolean, currency: SupportedCurrency) {
+        if (isBase) _baseCurrency.value = currency
+        else _resultCurrency.value = currency
+
+        updateRatio()
+    }
+
+    private fun updateRatio() = viewModelScope.launch {
         _ratio.value =
             currencyRepository.refreshRatio(_baseCurrency.value!!, _resultCurrency.value!!)
     }

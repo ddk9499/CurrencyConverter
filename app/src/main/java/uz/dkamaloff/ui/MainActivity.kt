@@ -44,13 +44,18 @@ class MainActivity : AppCompatActivity() {
 
         result_currency_output.addTextChangedListener(resultFormatter)
         swap_currencies_fab.setOnClickListener { vm.swapCurrencies() }
+        change_origin_currency.setOnClickListener { showCurrenciesDialog(true) }
+        change_result_currency.setOnClickListener { showCurrenciesDialog(false) }
 
-        vm.supportedCurrencies.observe(this, Observer {
-            Log.d("MainActivity", "onCreate: ${it.size}")
-        })
         vm.ratio.observe(this, Observer { updateResultAmount(it) })
         vm.baseCurrency.observe(this, Observer { updateBaseCurrency(it) })
         vm.resultCurrency.observe(this, Observer { updateResultCurrency(it) })
+    }
+
+    private fun showCurrenciesDialog(isBase: Boolean) {
+        val dialog =
+            CurrenciesDialog(vm.supportedCurrencies.value!!) { vm.changeCurrency(isBase, it) }
+        dialog.show(supportFragmentManager, "dialog")
     }
 
     private fun updateBaseCurrency(currency: SupportedCurrency) {

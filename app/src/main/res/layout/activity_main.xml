@@ -48,12 +48,26 @@
                 app:layout_constraintStart_toEndOf="@id/origin_currency_flag"
                 app:layout_constraintTop_toBottomOf="@id/origin_currency_full_name" />
 
+            <TextView
+                android:id="@+id/change_origin_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Change"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                app:layout_constraintBottom_toBottomOf="@id/origin_currency_flag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/origin_currency_flag" />
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/origin_currency_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:textColor="@color/black"
                 android:textSize="32sp"
@@ -110,17 +124,31 @@
                 app:layout_constraintTop_toBottomOf="@id/result_currency_full_name" />
 
             <TextView
+                android:id="@+id/change_result_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Change"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                app:layout_constraintBottom_toBottomOf="@id/result_currency_flag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/result_currency_flag" />
+
+            <TextView
                 android:id="@+id/result_currency_output"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
                 android:textColor="@color/blue"
                 android:textSize="32sp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/result_currency_flag" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
