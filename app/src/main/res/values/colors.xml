@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="keyboard_text_color">@color/gray</color>
+    <color name="keyboard_text_color">@color/black</color>
     <color name="keyboard_background">@color/white</color>
-    <color name="keyboard_dividers">@color/white</color>
+    <color name="keyboard_dividers">@color/gray_50</color>
 
     <color name="black">#090A0C</color>
     <color name="white">#F8F8F8</color>
