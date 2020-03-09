@@ -1,5 +1,9 @@
 # WIP (work in progress)
 
+Design by [Kirill](https://dribbble.com/kirillix).
+
+![](screenshots/design.png)
+
 ## TODO
 - [ ] Improvement UI design
 - [ ] Implement night theme
