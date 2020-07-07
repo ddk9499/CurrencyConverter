@@ -5,10 +5,11 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import libs.toothpick.viewmodel.viewModel
 import uz.dkamaloff.R
 import uz.dkamaloff.entities.SupportedCurrency
 import uz.dkamaloff.utils.AmountFormatter
@@ -20,9 +21,10 @@ import java.util.*
 
 private val LIMIT = BigDecimal(999_999_999_999.99)
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val vm by viewModel<MainViewModel>()
+    private val vm by viewModels<MainViewModel>()
     private var currentAmount = BigDecimal.ZERO
     private val originFormatter by lazy {
         AmountFormatter(origin_currency_input, listener = ::onTextChanged, limit = LIMIT)

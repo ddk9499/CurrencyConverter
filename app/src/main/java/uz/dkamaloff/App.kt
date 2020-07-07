@@ -1,7 +1,7 @@
 package uz.dkamaloff
 
 import android.app.Application
-import toothpick.ktp.KTP
+import dagger.hilt.android.HiltAndroidApp
 
 /**
  * Created at February 2020
@@ -10,10 +10,5 @@ import toothpick.ktp.KTP
  * @author Dostonbek Kamalov (aka @ddk9499)
  */
 
-class App : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-        KTP.openRootScope().installModules(appModule(this))
-    }
-}
+@HiltAndroidApp
+class App : Application()

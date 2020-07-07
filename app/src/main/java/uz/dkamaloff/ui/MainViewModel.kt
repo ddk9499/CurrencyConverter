@@ -1,9 +1,8 @@
 package uz.dkamaloff.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
@@ -14,7 +13,6 @@ import uz.dkamaloff.entities.SupportedCurrencies
 import uz.dkamaloff.entities.SupportedCurrency
 import uz.dkamaloff.model.CurrencyRepository
 import java.math.BigDecimal
-import javax.inject.Inject
 
 /**
  * Created at February 2020
@@ -23,8 +21,9 @@ import javax.inject.Inject
  * @author Dostonbek Kamalov (aka @ddk9499)
  */
 
-class MainViewModel @Inject constructor(
-    private val currencyRepository: CurrencyRepository
+class MainViewModel @ViewModelInject constructor(
+    private val currencyRepository: CurrencyRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val supportedCurrencies: LiveData<SupportedCurrencies> =
