@@ -3,9 +3,13 @@ package uz.dkamaloff
 import android.content.Context
 import android.content.res.AssetManager
 import com.google.gson.Gson
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
-import toothpick.ktp.binding.bind
-import toothpick.ktp.binding.module
+import javax.inject.Singleton
 
 /**
  * Created at February 2020
@@ -14,9 +18,20 @@ import toothpick.ktp.binding.module
  * @author Dostonbek Kamalov (aka @ddk9499)
  */
 
-fun appModule(context: Context) = module {
-    bind<Context>().toInstance(context)
-    bind<AssetManager>().toInstance(context.assets)
-    bind<Gson>().toInstance(Gson())
-    bind<OkHttpClient>().toInstance(OkHttpClient())
+@Module
+@InstallIn(ApplicationComponent::class)
+object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideAssetManager(@ApplicationContext context: Context): AssetManager = context.assets
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson = Gson()
+
+    @Singleton
+    @Provides
+    fun provideOkHttp(): OkHttpClient = OkHttpClient()
+
 }
