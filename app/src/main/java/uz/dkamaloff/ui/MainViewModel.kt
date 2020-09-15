@@ -1,14 +1,10 @@
 package uz.dkamaloff.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import uz.dkamaloff.entities.SupportedCurrencies
 import uz.dkamaloff.entities.SupportedCurrency
@@ -23,47 +19,45 @@ import javax.inject.Inject
  * @author Dostonbek Kamalov (aka @ddk9499)
  */
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class MainViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
-    val supportedCurrencies: LiveData<SupportedCurrencies> =
-        MutableLiveData(currencyRepository.supportedCurrencies)
+    val supportedCurrencies: SupportedCurrencies = currencyRepository.supportedCurrencies
 
-    private val userInputChannel = ConflatedBroadcastChannel<BigDecimal>()
-    private val _ratio = MutableLiveData<BigDecimal>()
-    private val _baseCurrency = MutableLiveData<SupportedCurrency>(supportedCurrencies.value!![1])
-    private val _resultCurrency = MutableLiveData<SupportedCurrency>(supportedCurrencies.value!![0])
+    private val userInputChannel = MutableStateFlow(BigDecimal.ZERO)
+    private val _originCurrency = MutableStateFlow(supportedCurrencies[0])
+    private val _resultCurrency = MutableStateFlow(supportedCurrencies[1])
+    private val _ratio = MutableStateFlow(Ratio(BigDecimal.ONE))
 
-    val ratio: LiveData<BigDecimal> get() = _ratio
-    val baseCurrency: LiveData<SupportedCurrency> get() = _baseCurrency
-    val resultCurrency: LiveData<SupportedCurrency> get() = _resultCurrency
+    val originCurrency: StateFlow<SupportedCurrency> = _originCurrency
+    val resultCurrency: StateFlow<SupportedCurrency> = _resultCurrency
+    val ratio: StateFlow<Ratio> = _ratio
 
     init {
-        viewModelScope.launch {
-            userInputChannel
-                .asFlow()
-                .debounce(1000L) // prevent make a network request for each user input
-                .distinctUntilChanged() // prevent make network request if input is not different from previous
-                .collect { updateRatio() }
-        }
+        userInputChannel
+            .debounce(1000L) // prevent make a network request for each user input
+            .distinctUntilChanged() // prevent make network request if input is not different from previous
+            .onEach { updateRatio() }
+            .launchIn(viewModelScope)
     }
 
-    fun needUpdateRatio(amount: BigDecimal) {
-        viewModelScope.launch {
-            userInputChannel.send(amount)
-        }
+    fun needUpdateRatio(amount: BigDecimal) = viewModelScope.launch {
+        userInputChannel.value = amount
     }
 
     fun swapCurrencies() {
-        val tmp = _baseCurrency.value
-        _baseCurrency.value = _resultCurrency.value
+        val tmp = _originCurrency.value
+        _originCurrency.value = resultCurrency.value
         _resultCurrency.value = tmp
+
         updateRatio()
     }
 
-    fun changeCurrency(isBase: Boolean, currency: SupportedCurrency) {
-        if (isBase) _baseCurrency.value = currency
+    fun changeCurrency(isOrigin: Boolean, currency: SupportedCurrency) {
+        if (isOrigin) _originCurrency.value = currency
         else _resultCurrency.value = currency
 
         updateRatio()
@@ -71,7 +65,9 @@ class MainViewModel @Inject constructor(
 
     private fun updateRatio() = viewModelScope.launch {
         _ratio.value =
-            currencyRepository.refreshRatio(_baseCurrency.value!!, _resultCurrency.value!!)
+            Ratio(currencyRepository.refreshRatio(_originCurrency.value, _resultCurrency.value))
     }
+
+    class Ratio(val value: BigDecimal)
 
 }
