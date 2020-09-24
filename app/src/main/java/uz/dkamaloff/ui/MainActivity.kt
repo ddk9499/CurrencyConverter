@@ -1,13 +1,19 @@
 package uz.dkamaloff.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import libs.toothpick.viewmodel.viewModel
 import uz.dkamaloff.R
 import uz.dkamaloff.entities.SupportedCurrency
@@ -20,7 +26,10 @@ import java.util.*
 
 private val LIMIT = BigDecimal(999_999_999_999.99)
 
-class MainActivity : AppCompatActivity() {
+@FlowPreview
+@ExperimentalCoroutinesApi
+@SuppressLint("SetTextI18n")
+class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     private val vm by viewModel<MainViewModel>()
     private var currentAmount = BigDecimal.ZERO
@@ -54,18 +63,28 @@ class MainActivity : AppCompatActivity() {
         change_origin_currency.setOnClickListener { showCurrenciesDialog(true) }
         change_result_currency.setOnClickListener { showCurrenciesDialog(false) }
 
-        vm.ratio.observe(this, Observer { updateResultAmount(it) })
-        vm.baseCurrency.observe(this, Observer { updateBaseCurrency(it) })
-        vm.resultCurrency.observe(this, Observer { updateResultCurrency(it) })
+        observeChanges()
     }
 
-    private fun showCurrenciesDialog(isBase: Boolean) {
+    private fun onTextChanged(amount: BigDecimal) {
+        currentAmount = amount
+        vm.needUpdateRatio(amount)
+    }
+
+    private fun showCurrenciesDialog(isOrigin: Boolean) {
         val dialog =
-            CurrenciesDialog(vm.supportedCurrencies.value!!) { vm.changeCurrency(isBase, it) }
+            CurrenciesDialog(vm.supportedCurrencies) { vm.changeCurrency(isOrigin, it) }
         dialog.show(supportFragmentManager, "dialog")
     }
 
-    private fun updateBaseCurrency(currency: SupportedCurrency) {
+    private fun observeChanges() {
+        vm.originCurrency.onEach { updateOriginCurrency(it) }.launchIn(this)
+        vm.resultCurrency.onEach { updateResultCurrency(it) }.launchIn(this)
+        vm.ratio.onEach { updateResultAmount(it) }.launchIn(this)
+    }
+
+
+    private fun updateOriginCurrency(currency: SupportedCurrency) {
         originFormatter.setCurrency(Currency.getInstance(currency.symbol))
         origin_currency_flag.loadRoundedImage(currency.icon)
         origin_currency_full_name.text = "${currency.symbol} - ${currency.fullName}"
@@ -77,17 +96,12 @@ class MainActivity : AppCompatActivity() {
         result_currency_full_name.text = "${currency.symbol} - ${currency.fullName}"
     }
 
-    private fun updateResultAmount(ratio: BigDecimal) {
-        val result = BigDecimal.ONE.divide(ratio, MathContext.DECIMAL32)
+    private fun updateResultAmount(ratio: MainViewModel.Ratio) {
+        val result = BigDecimal.ONE.divide(ratio.value, MathContext.DECIMAL32)
         origin_currency_ratio.text =
-            "1 ${vm.baseCurrency.value?.symbol} - $ratio ${vm.resultCurrency.value?.symbol}"
+            "1 ${vm.originCurrency.value.symbol} - ${ratio.value} ${vm.resultCurrency.value.symbol}"
         result_currency_ratio.text =
-            "1 ${vm.resultCurrency.value?.symbol} - ${result.scaled()} ${vm.baseCurrency.value?.symbol}"
-        result_currency_output.text = currentAmount.multiply(ratio).scaled().toString()
-    }
-
-    private fun onTextChanged(amount: BigDecimal) {
-        currentAmount = amount
-        vm.needUpdateRatio(amount)
+            "1 ${vm.resultCurrency.value.symbol} - ${result.scaled()} ${vm.originCurrency.value.symbol}"
+        result_currency_output.text = currentAmount.multiply(ratio.value).scaled().toString()
     }
 }

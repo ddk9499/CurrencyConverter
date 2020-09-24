@@ -9,7 +9,7 @@ Design by [Kirill](https://dribbble.com/kirillix).
 - [ ] Implement night theme
 - [x] Swap currencies
 - [x] Make currencies selectable for user
-- [ ] Fully replace LiveData with Flow(kotlinx.coroutines)
+- [x] Fully replace LiveData with Flow(kotlinx.coroutines)
 - [ ] Improve keyboard design.
 
 ## Used libraries
