@@ -37,7 +37,6 @@ class MainViewModel @Inject constructor(
     init {
         userInputChannel
             .debounce(1000L) // prevent make a network request for each user input
-            .distinctUntilChanged() // prevent make network request if input is not different from previous
             .onEach { updateRatio() }
             .launchIn(viewModelScope)
     }
