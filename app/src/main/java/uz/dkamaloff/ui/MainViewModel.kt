@@ -2,7 +2,6 @@ package uz.dkamaloff.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,7 +19,6 @@ import javax.inject.Inject
  */
 
 @FlowPreview
-@ExperimentalCoroutinesApi
 class MainViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
