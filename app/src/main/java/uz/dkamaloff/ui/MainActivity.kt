@@ -7,11 +7,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import libs.toothpick.viewmodel.viewModel
@@ -29,7 +28,7 @@ private val LIMIT = BigDecimal(999_999_999_999.99)
 @FlowPreview
 @ExperimentalCoroutinesApi
 @SuppressLint("SetTextI18n")
-class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+class MainActivity : AppCompatActivity() {
 
     private val vm by viewModel<MainViewModel>()
     private var currentAmount = BigDecimal.ZERO
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         dialog.show(supportFragmentManager, "dialog")
     }
 
-    private fun observeChanges() {
+    private fun observeChanges() = lifecycleScope.launchWhenResumed {
         vm.originCurrency.onEach { updateOriginCurrency(it) }.launchIn(this)
         vm.resultCurrency.onEach { updateResultCurrency(it) }.launchIn(this)
         vm.ratio.onEach { updateResultAmount(it) }.launchIn(this)
