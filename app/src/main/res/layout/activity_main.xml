@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/origin_currency_flag"
                 android:layout_width="@dimen/flag_wh"
                 android:layout_height="@dimen/flag_wh"
@@ -94,7 +94,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/origin_currency_input" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/result_currency_flag"
                 android:layout_width="@dimen/flag_wh"
                 android:layout_height="@dimen/flag_wh"
