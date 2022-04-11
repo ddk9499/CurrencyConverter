@@ -29,27 +29,28 @@ import javax.inject.Inject
 class CurrencyRepository @Inject constructor(
     private val assets: AssetManager,
     private val gson: Gson,
-    private val client: OkHttpClient
+    private val client: OkHttpClient,
 ) {
 
     val supportedCurrencies: SupportedCurrencies by lazy { fromAsset<SupportedCurrencies>("currencies.json") }
 
     suspend fun refreshRatio(
         baseCurrency: SupportedCurrency,
-        resultCurrency: SupportedCurrency
+        resultCurrency: SupportedCurrency,
     ): BigDecimal = withContext(Dispatchers.IO) {
         client.fetchCurrencyRatio(baseCurrency, resultCurrency)
     }
 
     private fun OkHttpClient.fetchCurrencyRatio(
         baseCurrency: SupportedCurrency,
-        resultCurrency: SupportedCurrency
+        resultCurrency: SupportedCurrency,
     ): BigDecimal {
-        val url = "https://api.exchangeratesapi.io/".toHttpUrl()
+        val fromCurrency = baseCurrency.symbol.lowercase()
+        val toCurrency = resultCurrency.symbol.lowercase()
+        val url = "https://cdn.jsdelivr.net/gh/fawazahmed0/".toHttpUrl()
             .newBuilder()
-            .addPathSegment("latest")
-            .addQueryParameter("base", baseCurrency.symbol)
-            .addQueryParameter("symbols", resultCurrency.symbol)
+            .addPathSegment("currency-api@1/latest/currencies/")
+            .addPathSegment("$fromCurrency.json")
             .build()
 
         val json = newCall(Request.Builder().url(url).get().build())
@@ -61,8 +62,8 @@ class CurrencyRepository @Inject constructor(
         // dynamic keys for currency. For shorthand I have used JSONObject and manually convert
         // response. In future it will be replaced with TypeAdapter.
         return JSONObject(json)
-            .getJSONObject("rates")
-            .getDouble(resultCurrency.symbol)
+            .getJSONObject(fromCurrency)
+            .getDouble(toCurrency)
             .toBigDecimal()
             .scaled()
     }
