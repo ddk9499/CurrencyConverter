@@ -6,7 +6,7 @@
     android:elevation="8dp"
     android:layout_margin="8dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/item_currency_flag"
         android:layout_width="@dimen/flag_wh"
         android:layout_height="@dimen/flag_wh"
