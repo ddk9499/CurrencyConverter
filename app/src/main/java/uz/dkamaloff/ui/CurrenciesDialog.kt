@@ -10,8 +10,8 @@ import android.widget.FrameLayout
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_currency.view.*
 import uz.dkamaloff.R
+import uz.dkamaloff.databinding.ItemCurrencyBinding
 import uz.dkamaloff.entities.SupportedCurrencies
 import uz.dkamaloff.entities.SupportedCurrency
 import uz.dkamaloff.utils.loadRoundedImage
@@ -32,7 +32,7 @@ class CurrenciesDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val ctx = requireContext()
         val rv = RecyclerView(ctx).also {
             it.layoutManager = LinearLayoutManager(ctx)
@@ -51,20 +51,21 @@ class CurrenciesDialog(
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyHolder =
             CurrencyHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.item_currency,
-                    parent,
-                    false
-                )
+                ItemCurrencyBinding.inflate(layoutInflater)
+//                LayoutInflater.from(parent.context).inflate(
+//                    R.layout.item_currency,
+//                    parent,
+//                    false
+//                )
             )
     }
 
-    private inner class CurrencyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private inner class CurrencyHolder(private val binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(currency: SupportedCurrency) = with(itemView) {
-            item_currency_flag.loadRoundedImage(currency.icon)
-            item_currency_name.text = "${currency.symbol} - ${currency.fullName}"
-            setOnClickListener {
+        fun bind(currency: SupportedCurrency) = with(binding) {
+            binding.itemCurrencyFlag.loadRoundedImage(currency.icon)
+            binding.itemCurrencyName.text = "${currency.symbol} - ${currency.fullName}"
+            binding.root.setOnClickListener {
                 listener(currency)
                 dismiss()
             }

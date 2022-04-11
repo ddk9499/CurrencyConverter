@@ -3,11 +3,10 @@ package uz.dkamaloff.ui.customviews
 import android.content.Context
 import android.util.AttributeSet
 import android.view.KeyEvent
-import android.view.View
+import android.view.LayoutInflater
 import android.view.View.OnClickListener
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.view_keyboard.view.*
-import uz.dkamaloff.R
+import uz.dkamaloff.databinding.ViewKeyboardBinding
 
 /**
  * Created at February 2020
@@ -25,38 +24,38 @@ class KeyboardView @JvmOverloads constructor(
     private var onClick: (KeyEvent) -> Unit = {}
 
     init {
-        View.inflate(context, R.layout.view_keyboard, this)
+        val binding = ViewKeyboardBinding.inflate(LayoutInflater.from(context), this)
 
         val onClickListener = OnClickListener {
             val tag = it.tag as KeyEvent
             onClick(tag)
         }
 
-        keyboard_number0.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_0)
-        keyboard_number1.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_1)
-        keyboard_number2.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_2)
-        keyboard_number3.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_3)
-        keyboard_number4.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_4)
-        keyboard_number5.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_5)
-        keyboard_number6.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_6)
-        keyboard_number7.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_7)
-        keyboard_number8.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_8)
-        keyboard_number9.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_9)
-        keyboard_dot.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PERIOD)
-        keyboard_backspace.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)
+        binding.keyboardNumber0.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_0)
+        binding.keyboardNumber1.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_1)
+        binding.keyboardNumber2.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_2)
+        binding.keyboardNumber3.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_3)
+        binding.keyboardNumber4.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_4)
+        binding.keyboardNumber5.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_5)
+        binding.keyboardNumber6.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_6)
+        binding.keyboardNumber7.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_7)
+        binding.keyboardNumber8.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_8)
+        binding.keyboardNumber9.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_9)
+        binding.keyboardDot.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PERIOD)
+        binding.keyboardBackspace.tag = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)
 
-        keyboard_number0.setOnClickListener(onClickListener)
-        keyboard_number1.setOnClickListener(onClickListener)
-        keyboard_number2.setOnClickListener(onClickListener)
-        keyboard_number3.setOnClickListener(onClickListener)
-        keyboard_number4.setOnClickListener(onClickListener)
-        keyboard_number5.setOnClickListener(onClickListener)
-        keyboard_number6.setOnClickListener(onClickListener)
-        keyboard_number7.setOnClickListener(onClickListener)
-        keyboard_number8.setOnClickListener(onClickListener)
-        keyboard_number9.setOnClickListener(onClickListener)
-        keyboard_dot.setOnClickListener(onClickListener)
-        keyboard_backspace.setOnClickListener(onClickListener)
+        binding.keyboardNumber0.setOnClickListener(onClickListener)
+        binding.keyboardNumber1.setOnClickListener(onClickListener)
+        binding.keyboardNumber2.setOnClickListener(onClickListener)
+        binding.keyboardNumber3.setOnClickListener(onClickListener)
+        binding.keyboardNumber4.setOnClickListener(onClickListener)
+        binding.keyboardNumber5.setOnClickListener(onClickListener)
+        binding.keyboardNumber6.setOnClickListener(onClickListener)
+        binding.keyboardNumber7.setOnClickListener(onClickListener)
+        binding.keyboardNumber8.setOnClickListener(onClickListener)
+        binding.keyboardNumber9.setOnClickListener(onClickListener)
+        binding.keyboardDot.setOnClickListener(onClickListener)
+        binding.keyboardBackspace.setOnClickListener(onClickListener)
     }
 
     fun onClick(listener: (KeyEvent) -> Unit) {
