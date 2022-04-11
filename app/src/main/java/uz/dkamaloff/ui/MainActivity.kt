@@ -13,12 +13,12 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import libs.toothpick.viewmodel.viewModel
 import uz.dkamaloff.R
 import uz.dkamaloff.entities.SupportedCurrency
 import uz.dkamaloff.utils.AmountFormatter
 import uz.dkamaloff.utils.loadRoundedImage
 import uz.dkamaloff.utils.scaled
+import uz.dkamaloff.utils.viewModel
 import java.math.BigDecimal
 import java.math.MathContext
 import java.util.*
