@@ -18,9 +18,11 @@ import javax.inject.Inject
  * @author Dostonbek Kamalov (aka @ddk9499)
  */
 
+private const val INPUT_DEBOUNCE = 300L
+
 @FlowPreview
 class MainViewModel @Inject constructor(
-    private val currencyRepository: CurrencyRepository
+    private val currencyRepository: CurrencyRepository,
 ) : ViewModel() {
 
     val supportedCurrencies: SupportedCurrencies = currencyRepository.supportedCurrencies
@@ -36,7 +38,7 @@ class MainViewModel @Inject constructor(
 
     init {
         userInputChannel
-            .debounce(1000L) // prevent make a network request for each user input
+            .debounce(INPUT_DEBOUNCE) // prevent make a network request for each user input
             .onEach { updateRatio() }
             .launchIn(viewModelScope)
     }
