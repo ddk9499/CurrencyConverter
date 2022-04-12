@@ -6,7 +6,7 @@ android {
     compileSdkVersion 32
     buildToolsVersion "32.0.0"
     defaultConfig {
-        applicationId "uz.dkamaloff"
+        applicationId "uz.dkamaloff.currencyconverter"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1

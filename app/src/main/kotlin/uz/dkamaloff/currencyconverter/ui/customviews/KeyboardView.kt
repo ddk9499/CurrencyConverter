@@ -1,4 +1,4 @@
-package uz.dkamaloff.ui.customviews
+package uz.dkamaloff.currencyconverter.ui.customviews
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,7 +6,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View.OnClickListener
 import androidx.constraintlayout.widget.ConstraintLayout
-import uz.dkamaloff.databinding.ViewKeyboardBinding
+import uz.dkamaloff.currencyconverter.databinding.ViewKeyboardBinding
 
 /**
  * Created at February 2020

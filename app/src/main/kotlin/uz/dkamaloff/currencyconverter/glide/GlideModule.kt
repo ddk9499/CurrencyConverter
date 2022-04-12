@@ -1,4 +1,4 @@
-package uz.dkamaloff.glide
+package uz.dkamaloff.currencyconverter.glide
 
 import android.content.Context
 import android.graphics.drawable.PictureDrawable

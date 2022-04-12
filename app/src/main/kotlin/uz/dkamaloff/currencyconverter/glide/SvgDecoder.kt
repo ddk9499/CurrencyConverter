@@ -1,4 +1,4 @@
-package uz.dkamaloff.glide
+package uz.dkamaloff.currencyconverter.glide
 
 import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.ResourceDecoder

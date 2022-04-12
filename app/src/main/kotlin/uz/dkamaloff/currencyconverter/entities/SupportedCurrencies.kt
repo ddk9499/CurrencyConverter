@@ -1,4 +1,4 @@
-package uz.dkamaloff.entities
+package uz.dkamaloff.currencyconverter.entities
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package uz.dkamaloff
+package uz.dkamaloff.currencyconverter
 
 import android.content.Context
 import android.content.res.AssetManager

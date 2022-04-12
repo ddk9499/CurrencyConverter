@@ -1,11 +1,11 @@
-package uz.dkamaloff.utils
+package uz.dkamaloff.currencyconverter.utils
 
 import android.graphics.drawable.PictureDrawable
 import android.widget.ImageView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import uz.dkamaloff.glide.GlideApp
-import uz.dkamaloff.glide.SvgSoftwareLayerSetter
+import uz.dkamaloff.currencyconverter.glide.GlideApp
+import uz.dkamaloff.currencyconverter.glide.SvgSoftwareLayerSetter
 import java.math.BigDecimal
 import java.math.RoundingMode
 

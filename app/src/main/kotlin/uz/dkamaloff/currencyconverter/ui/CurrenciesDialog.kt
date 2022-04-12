@@ -1,4 +1,4 @@
-package uz.dkamaloff.ui
+package uz.dkamaloff.currencyconverter.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +10,10 @@ import android.widget.FrameLayout
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import uz.dkamaloff.R
-import uz.dkamaloff.databinding.ItemCurrencyBinding
-import uz.dkamaloff.entities.SupportedCurrencies
-import uz.dkamaloff.entities.SupportedCurrency
-import uz.dkamaloff.utils.loadRoundedImage
+import uz.dkamaloff.currencyconverter.databinding.ItemCurrencyBinding
+import uz.dkamaloff.currencyconverter.entities.SupportedCurrencies
+import uz.dkamaloff.currencyconverter.entities.SupportedCurrency
+import uz.dkamaloff.currencyconverter.utils.loadRoundedImage
 
 /**
  * Created at March 2020

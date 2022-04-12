@@ -1,4 +1,4 @@
-package uz.dkamaloff.utils
+package uz.dkamaloff.currencyconverter.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

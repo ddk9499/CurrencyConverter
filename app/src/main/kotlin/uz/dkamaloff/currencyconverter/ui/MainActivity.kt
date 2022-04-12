@@ -1,4 +1,4 @@
-package uz.dkamaloff.ui
+package uz.dkamaloff.currencyconverter.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -11,12 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import uz.dkamaloff.databinding.ActivityMainBinding
-import uz.dkamaloff.entities.SupportedCurrency
-import uz.dkamaloff.utils.AmountFormatter
-import uz.dkamaloff.utils.loadRoundedImage
-import uz.dkamaloff.utils.scaled
-import uz.dkamaloff.utils.viewModel
+import uz.dkamaloff.currencyconverter.databinding.ActivityMainBinding
+import uz.dkamaloff.currencyconverter.entities.SupportedCurrency
+import uz.dkamaloff.currencyconverter.utils.AmountFormatter
+import uz.dkamaloff.currencyconverter.utils.loadRoundedImage
+import uz.dkamaloff.currencyconverter.utils.scaled
+import uz.dkamaloff.currencyconverter.utils.viewModel
 import java.math.BigDecimal
 import java.math.MathContext
 import java.util.*

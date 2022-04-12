@@ -1,4 +1,4 @@
-package uz.dkamaloff.utils
+package uz.dkamaloff.currencyconverter.utils
 
 import android.text.Editable
 import android.text.SpannableStringBuilder

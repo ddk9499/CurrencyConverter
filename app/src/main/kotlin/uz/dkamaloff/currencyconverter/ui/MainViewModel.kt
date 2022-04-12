@@ -1,13 +1,13 @@
-package uz.dkamaloff.ui
+package uz.dkamaloff.currencyconverter.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import uz.dkamaloff.entities.SupportedCurrencies
-import uz.dkamaloff.entities.SupportedCurrency
-import uz.dkamaloff.model.CurrencyRepository
+import uz.dkamaloff.currencyconverter.entities.SupportedCurrencies
+import uz.dkamaloff.currencyconverter.entities.SupportedCurrency
+import uz.dkamaloff.currencyconverter.model.CurrencyRepository
 import java.math.BigDecimal
 import javax.inject.Inject
 

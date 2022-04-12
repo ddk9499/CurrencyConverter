@@ -1,4 +1,4 @@
-package uz.dkamaloff
+package uz.dkamaloff.currencyconverter
 
 import android.app.Application
 import toothpick.ktp.KTP

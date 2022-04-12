@@ -1,4 +1,4 @@
-package uz.dkamaloff.model
+package uz.dkamaloff.currencyconverter.model
 
 import android.content.res.AssetManager
 import com.google.gson.Gson
@@ -11,9 +11,9 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody
 import org.json.JSONObject
-import uz.dkamaloff.entities.SupportedCurrencies
-import uz.dkamaloff.entities.SupportedCurrency
-import uz.dkamaloff.utils.scaled
+import uz.dkamaloff.currencyconverter.entities.SupportedCurrencies
+import uz.dkamaloff.currencyconverter.entities.SupportedCurrency
+import uz.dkamaloff.currencyconverter.utils.scaled
 import java.io.IOException
 import java.io.InputStreamReader
 import java.math.BigDecimal
